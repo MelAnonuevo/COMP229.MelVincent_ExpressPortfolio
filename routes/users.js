@@ -1,3 +1,7 @@
+// Author: Mel Vincent Anonuevo
+// Student ID: 301167069
+// Date: Feb 1, 2022
+
 var express = require('express');
 var router = express.Router();
 let userController = require('../controllers/user')

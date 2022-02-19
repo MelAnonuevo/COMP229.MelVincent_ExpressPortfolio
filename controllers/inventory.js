@@ -1,3 +1,7 @@
+// Author: Mel Vincent Anonuevo
+// Student ID: 301167069
+// Date: Feb 1, 2022
+
 let Inventory = require('../models/inventory');
 
 exports.list = function(req, res, next) {
