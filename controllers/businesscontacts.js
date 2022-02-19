@@ -1,3 +1,7 @@
+// Author: Mel Vincent Anonuevo
+// Student ID: 301167069
+// Date: Feb 1, 2022
+
 let BusinessContacts = require('../models/businesscontacts');
 
 exports.list = function(req, res, next) {
