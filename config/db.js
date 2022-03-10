@@ -1,9 +1,7 @@
 // Author: Mel Vincent Anonuevo
 // Student ID: 301167069
 // Date: Feb 1, 2022
-
-// Do not use it in production
-let DB_CONNECTION ="mongodb+srv://dbadmin:5WwaSJObLquB5cKz@comp229-mel.bmpbg.mongodb.net/COMP229-002"
+let config = require('./config')
 
 // Database Setup
 let mongoose = require('mongoose');
@@ -11,7 +9,7 @@ let mongoose = require('mongoose');
 module.exports = function(){  
 
     // Connect to the DB
-    mongoose.connect(DB_CONNECTION);
+    mongoose.connect(config.ATLASDB);
 
     let mongoDB = mongoose.connection;
 

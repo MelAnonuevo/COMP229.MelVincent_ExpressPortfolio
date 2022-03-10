@@ -4,6 +4,16 @@
 
 let Inventory = require('../models/inventory');
 
+function getErrorMessage(err) {
+    if (err.errors) {
+        for (let errName in err.errors) {
+            if (err.errors[errName].message) return err.errors[errName].message;
+        }
+    } else {
+        return 'Unknown server error';
+    }
+};
+
 exports.list = function(req, res, next) {
 
     Inventory.find((err, inventoryList) => {
@@ -96,9 +106,9 @@ module.exports.processAdd = (req, res, next) => {
 
 module.exports.processEdit = (req, res, next) => {
     let id = req.params.id
-
+    
     let updatedItem = Inventory({
-        _id: req.body.id,
+        _id: id,
         item: req.body.item,
         qty: req.body.qty,
         status: req.body.status,
@@ -110,19 +120,31 @@ module.exports.processEdit = (req, res, next) => {
         tags: req.body.tags.split(",").map(word => word.trim())
     });
 
-    // console.log(updatedItem);
+    console.log(updatedItem);
 
     Inventory.updateOne({_id: id}, updatedItem, (err) => {
         if(err)
         {
             console.log(err);
-            res.end(err);
+            // res.end(err);
+            return res.status(400).json(
+                { 
+                  success: false, 
+                  message: getErrorMessage(err)
+                }
+            );
         }
         else
         {
             // console.log(req.body);
             // refresh the book list
-            res.redirect('/inventory/list');
+            // res.redirect('/inventory/list');
+            return res.status(200).json(
+                { 
+                  success: true, 
+                  message: 'Item updated successfully.'
+                }
+            );
         }
     });
 }
@@ -134,12 +156,24 @@ module.exports.performDelete = (req, res, next) => {
         if(err)
         {
             console.log(err);
-            res.end(err);
+            // res.end(err);
+            return res.status(400).json(
+                { 
+                  success: false, 
+                  message: getErrorMessage(err)
+                }
+            );
         }
         else
         {
             // refresh the book list
-            res.redirect('/inventory/list');
+            // res.redirect('/inventory/list');
+            return res.status(200).json(
+                { 
+                  success: true, 
+                  message: 'Item removed successfully.'
+                }
+            );
         }
     });
 }

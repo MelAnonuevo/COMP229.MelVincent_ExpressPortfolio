@@ -12,6 +12,7 @@ let logger = require('morgan');
 // let session = require('express-session');
 // let flash = require('connect-flash');
 let passport = require('passport');
+let compression = require('compression');
 
 let errorHandler = require('./error-handler');
 
@@ -23,6 +24,7 @@ let businesscontactsRouter = require('../routes/businesscontacts');
 
 let app = express();
 
+app.use(compression());
 // app.use(session({
 //   saveUninitialized: true,
 //   resave: true,
